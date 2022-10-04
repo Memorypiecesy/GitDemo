@@ -20,5 +20,10 @@ class MainActivity : AppCompatActivity() {
                 textView.text = "${++number}"
             }
         }
+        findViewById<Button>(R.id.buttonMinus).apply {
+            setOnClickListener {
+                textView.text = "${--number}"
+            }
+        }
     }
 }
