@@ -2,6 +2,7 @@ package com.example.gitdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import android.widget.TextView
 
@@ -25,5 +26,10 @@ class MainActivity : AppCompatActivity() {
                 textView.text = "${--number}"
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }
