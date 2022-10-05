@@ -13,8 +13,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        number = savedInstanceState?.getInt("NUMBER")?:0
         val textView = findViewById<TextView>(R.id.textView).apply {
-            text = "0"
+            text = "$number"
         }
         findViewById<Button>(R.id.buttonAdd).apply {
             setOnClickListener {
@@ -31,5 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("NUMBER",number)
     }
 }
