@@ -6,35 +6,35 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
 
-    private var number = 0
+    private lateinit var myViewModel: MyViewModel
     private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        number = savedInstanceState?.getInt("NUMBER")?:0
-        textView = findViewById<TextView>(R.id.textView).apply {
-            text = "$number"
-        }
+        myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        textView = findViewById(R.id.textView)
+        myViewModel.numberLiveData.observe(this, Observer { textView.text="$it" })
         findViewById<Button>(R.id.buttonAdd).apply {
             setOnClickListener {
-                textView.text = "${++number}"
+                myViewModel.add(1)
             }
         }
         findViewById<Button>(R.id.buttonMinus).apply {
             setOnClickListener {
-                textView.text = "${--number}"
+                myViewModel.add(-1)
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId==R.id.menu_reset){
-            number=0
-            textView.text = "$number"
+            myViewModel.reset()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -44,8 +44,4 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("NUMBER",number)
-    }
 }
