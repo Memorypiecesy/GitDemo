@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitDemo</string>
+    <string name="button_sub_text">-1</string>
+    <string name="button_add_text">+1</string>
 </resources>
